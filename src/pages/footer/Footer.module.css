@@ -1,0 +1,35 @@
+
+.footerStayPut {
+    position: relative;
+    bottom: 0;
+    left: 0;
+}
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 11px;
+    padding-top: 14px;
+}
+
+.legalFooter {
+    text-align: center;
+    padding: 14px;
+    background-color: #F7F9FA;
+}
+
+.footerGroup {
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+}
+
+.footerGroup a {
+    color: #666;
+    white-space: nowrap;
+}
+
+.footerGroup li {
+    margin-left: 10px;
+}
