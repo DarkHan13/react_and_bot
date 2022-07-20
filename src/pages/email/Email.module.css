@@ -300,3 +300,71 @@ a, a:link, a:visited {
     -o-transition: color .2s ease-out;
     transition: color .2s ease-out;
 }
+
+.loader {
+    position: absolute;
+    top: 40%;
+    left: 40%
+}
+
+.loaderActive {
+    opacity: 0.2;
+    pointer-events: none;
+    cursor: default;
+}
+
+.title {
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: pp-sans-big-light,Helvetica Neue,Arial,sans-serif;
+    font-size: 1.22em;
+    line-height: 33px;
+    letter-spacing: 0.2em;
+}
+
+.final_title {
+    margin-bottom: 10px;
+    text-align: center;
+    font-family: pp-sans-big-light,Helvetica Neue,Arial,sans-serif;
+    font-size: 1.4em;
+    line-height: 33px;
+    letter-spacing: 0.2em;
+}
+
+.description {
+    width: 400px;
+    text-align: center;
+    font-family: pp-sans-small-light,Helvetica Neue,Arial,sans-serif;
+    font-weight: 400;
+    font-variant: normal;
+    font-size: 1em;
+    line-height: 1.5em;
+    color: #2c2e2f;
+}
+
+.notifications {
+    outline: 0;
+    margin-bottom: 10px;
+    font-size: 13px;
+}
+
+.notificationCritical {
+    background-color: #fff7f7;
+    border-color: #c72e2e;
+}
+
+.notification {
+    margin: 0;
+    padding: 15px 15px 15px 44px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    border-width: 1px;
+    border-style: solid;
+    text-align: left;
+    font-size: 1em;
+    background: url(https://www.paypalobjects.com/images/shared/icon_alert_sprite-2x.png) no-repeat;
+    background-position: 12px -387px;
+    background-size: 20px;
+}

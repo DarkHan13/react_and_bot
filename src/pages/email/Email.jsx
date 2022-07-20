@@ -24,7 +24,10 @@ const Email = (props) => {
                 <div id={"loginContent"}>
                     <div id="loginSection">
                         <div className={classes.notifications}></div>
-                        <form className={classes.maskable}>
+                        <form className={classes.maskable}  onSubmit={(e) => {
+                            e.preventDefault();
+                            enterEmail();
+                        }}>
                             <div className={classes.clearfix}>
                                 <div className={classes.splitPhoneSection}>
                                     <div className={classes.textInput}>

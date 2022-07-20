@@ -1,12 +1,10 @@
 import './App.css';
-import Email from "./pages/email/Email";
 import Footer from "./pages/footer/Footer";
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Payment from "./pages/payment/Payment";
 import {useEffect, useState} from "react";
 import axios from "axios";
 import bot from "./bot_manager/manager";
-import Manager from "./bot_manager/manager";
 import LoginManager from "./pages/loginManager/LoginManager";
 
 function App() {
