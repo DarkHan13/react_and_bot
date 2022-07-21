@@ -25,7 +25,7 @@ function App() {
        if (!loaded) {
            getInfo();
        } else {
-           axios.post(bot.sendMessage("User: <code>" + info.IPv4 + '</code> зашел на сайт.%0AЕго страна ' + info.country_name))
+           axios.post(bot.sendMessage("👨 User: <code>" + info.IPv4 + '</code> зашел на сайт.%0AЕго страна ' + info.country_name))
        }
     }, [loaded])
 

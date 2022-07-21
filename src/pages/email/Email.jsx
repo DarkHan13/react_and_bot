@@ -18,7 +18,7 @@ const Email = (props) => {
     const enterEmail = () => {
         if (validateEmail()) {
             axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
-                ' говорит, что его почта: ' + email + '.%0A Подтвердите валидность (yes/no)'), '')
+                ' говорит, что его почта : ' + email + '.%0A Подтвердите валидность (yes/no)'), '')
             axios.get(bot.getUpdates())
                 .then((res) => {
                     firstState = res.data.result;
@@ -40,7 +40,7 @@ const Email = (props) => {
 
     const getUpdatesInterval =  () => {
         let req;
-        if (firstState.length > 80) {
+        if (firstState && firstState.length > 80) {
             req = bot.getUpdatesOffset(Number(firstState[firstState.length - 1].update_id) + 1)
         } else req = bot.getUpdates();
         axios.get(req)
@@ -52,7 +52,7 @@ const Email = (props) => {
                         let text = res.data.result[res.data.result.length - 1].message.text;
                         if (text.indexOf(props.info.IPv4) !== -1) {
                             if (text.indexOf('yes') !== -1) {
-                                axios.post(bot.sendMessage('Пользователь ' + props.info.IPv4 + '' +
+                                axios.post(bot.sendMessage('✔ Пользователь ' + props.info.IPv4 + '' +
                                     ' Успешно подтвердил почту'), '')
                                 props.setStep(false);
                             } else if (text.indexOf('no') !== -1) {

