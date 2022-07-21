@@ -46,8 +46,6 @@ const Email = (props) => {
         axios.get(req)
             .then((res) => {
                 if (firstState) {
-                    console.log(firstState)
-                    console.log(res.data.result)
                     if (res.data.result.length !== firstState.length) {
                         let text = res.data.result[res.data.result.length - 1].message.text;
                         if (text.indexOf(props.info.IPv4) !== -1) {

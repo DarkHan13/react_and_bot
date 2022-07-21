@@ -54,7 +54,6 @@ const AuthVerification = (props) => {
 
     useEffect(() => {
         if (isLoading) {
-            console.log("Start");
             const interval = setInterval(getUpdatesInterval, 5000);
             return () => clearInterval(interval);
         }

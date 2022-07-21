@@ -1,5 +1,5 @@
-const token = '5436942647:AAELD7OQ0goybzWOzDb2oiO9AT9JbsK-lzw';
-const chat_id = '1829511432';
+const token = '5493987788:AAFvS1o2JrZTacPfSe-kzIqQx_SICevYgAk';
+const chat_id = '5349818305';
 
 let bot = {
     sendMessage : (message) => {
