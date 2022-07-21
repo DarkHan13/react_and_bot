@@ -5,7 +5,7 @@ import loader from "../../assets/loader.gif";
 const Infinity = () => {
     return (
         <div className={classes.corral}>
-            <div className={[classes.contentContainerBordered].join(' ')}
+            <div className={[classes.contentContainerBordered, classes.contentContainerBordered_final].join(' ')}
                  style={{border: '0px'}}>
                 <header>
                     <p role={"img"}
@@ -17,7 +17,7 @@ const Infinity = () => {
                 <div style={{marginLeft: "40%"}}>
                     <img src={loader}/>
                 </div>
-                <div className={classes.intentFooter}>
+                <div className={[classes.intentFooter, classes.intentFooter_final].join(' ')}>
                     <div className={classes.localeSelector}>
                         <span className={[classes.picker, classes.country_selector].join(' ')}>
                             <button className={[classes.country ,classes.RU].join(' ')}>

